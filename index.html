@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Better Balance, More Mobility | Online Video</title>
+    <style>
+      :root {
+        --main: #035c70;
+        --accent1: #a7a9ac;
+        --accent2: #df861d;
+
+        --bg: #f6f8f9;
+        --card: #ffffff;
+        --text: #0f172a;
+        --muted: #5b6670;
+        --border: rgba(167, 169, 172, 0.55);
+        --shadow: 0 10px 25px rgba(2, 23, 28, 0.08);
+        --radius: 14px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          system-ui,
+          -apple-system,
+          Segoe UI,
+          Roboto,
+          Arial,
+          sans-serif;
+        color: var(--text);
+        background: var(--bg);
+      }
+
+      .page {
+        min-height: 100vh;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+      }
+
+      header {
+        background: var(--main);
+        color: #fff;
+        padding: 22px 16px;
+        border-bottom: 4px solid var(--accent2);
+      }
+
+      .header-inner {
+        max-width: 1060px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 260px;
+        align-items: center;
+        gap: 14px;
+      }
+
+      header h1 {
+        margin: 0;
+        font-size: 38px;
+        font-weight: 700;
+        letter-spacing: 0.2px;
+      }
+
+      input[type="search"] {
+        width: 100%;
+        padding: 10px 12px; /* slightly smaller */
+        font-size: 14px; /* slightly smaller */
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        outline: none;
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+      }
+
+      input[type="search"]::placeholder {
+        color: rgba(255, 255, 255, 0.8);
+      }
+      input[type="search"]:focus {
+        border-color: rgba(223, 134, 29, 0.95);
+        box-shadow: 0 0 0 4px rgba(223, 134, 29, 0.25);
+      }
+
+      main {
+        max-width: 1060px;
+        margin: 18px auto 28px;
+        padding: 0 16px;
+        width: 100%;
+      }
+
+      details {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        margin: 14px 0;
+        box-shadow: var(--shadow);
+        overflow: visible;
+      }
+
+      summary {
+        cursor: pointer;
+        padding: 14px 16px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        list-style: none;
+        gap: 10px;
+      }
+      summary::-webkit-details-marker {
+        display: none;
+      }
+
+      details > summary {
+        background: #5b6670;
+        color: #fff;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      }
+
+      .summary-left {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        min-width: 0;
+      }
+
+      .chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 1;
+        letter-spacing: 0.2px;
+        color: #ffffff;
+        background: linear-gradient(135deg, rgba(223, 134, 29, 0.95), rgba(223, 134, 29, 0.7));
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        box-shadow: 0 6px 16px rgba(2, 23, 28, 0.12);
+
+        white-space: nowrap;
+      }
+
+      .chev {
+        width: 28px;
+        height: 28px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        flex: 0 0 auto;
+      }
+      details[open] .chev {
+        background: rgb(223, 133, 29);
+        border-color: rgb(223, 133, 29);
+      }
+
+      .content {
+        padding: 14px 16px 16px;
+        background: #fff;
+      }
+
+      .videos {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin-top: 10px;
+        justify-items: center;
+      }
+
+      .card {
+        border: 1px solid rgba(167, 169, 172, 0.55);
+        border-radius: 12px;
+        background: #fff;
+        overflow: hidden;
+        width: min(100%, 840px); /* adjust 900px to taste */
+      }
+
+      .card h4 {
+        margin: 0;
+        padding: 10px 12px;
+        font-size: 14px;
+        font-weight: 700;
+        border-bottom: 1px solid rgba(167, 169, 172, 0.45);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      .card h4 .tag {
+        font-size: 12px;
+        font-weight: 800;
+        color: var(--accent2);
+        letter-spacing: 0.2px;
+      }
+
+      /* 3Play's iframe can include a player, interactive transcript, and audio-description controls. */
+      .embed-3play {
+        width: 100%;
+        height: clamp(520px, 75vh, 850px);
+        background: #fff;
+      }
+      .embed-3play iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
+
+      .pending {
+        padding: 14px 12px;
+        color: var(--muted);
+        font-size: 13px;
+        border-top: 1px solid rgba(167, 169, 172, 0.45);
+        background: rgba(167, 169, 172, 0.1);
+        display: grid;
+        gap: 8px;
+      }
+      .pending strong {
+        color: var(--main);
+      }
+
+      .openlink a {
+        color: var(--main);
+        font-weight: 700;
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        padding-bottom: 1px;
+      }
+      .openlink a:hover,
+      .openlink a:focus-visible {
+        border-bottom-color: var(--accent2);
+        outline: none;
+      }
+
+      footer {
+        background: linear-gradient(180deg, rgba(3, 92, 112, 0.98), rgba(3, 92, 112, 0.92));
+        border-top: 4px solid var(--accent2);
+      }
+
+      .footer-inner {
+        max-width: 1060px;
+        margin: 0 auto;
+        padding: 16px 16px;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 14px;
+        color: #fff;
+      }
+
+      .footer-links {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 10px 14px;
+        align-items: center;
+        font-size: 15px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.92);
+      }
+
+      .footer-links a {
+        color: #ffffff;
+        text-decoration: none;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.25);
+        padding-bottom: 2px;
+        transition:
+          border-color 0.15s ease,
+          opacity 0.15s ease;
+      }
+
+      .footer-links a:hover {
+        border-bottom-color: var(--accent2);
+        opacity: 0.95;
+      }
+
+      .footer-links a:focus-visible {
+        outline: 3px solid rgba(223, 134, 29, 0.55);
+        outline-offset: 3px;
+        border-bottom-color: var(--accent2);
+      }
+
+      .footer-logo {
+        display: inline-flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+
+      .footer-logo img {
+        height: 60px;
+        width: auto;
+        max-width: 320px;
+        display: block;
+        padding: 6px 10px;
+        border-radius: 10px;
+      }
+
+      @media (max-width: 720px) {
+        .header-inner {
+          grid-template-columns: 1fr;
+        }
+        input[type="search"] {
+          justify-self: stretch;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div class="header-inner">
+          <h1>Better Balance, More Mobility: Gain Greater Stability and Strength at Any Age Online Video</h1>
+          <input id="search" type="search" placeholder="Search videos..." aria-label="Search videos" />
+        </div>
+      </header>
+
+      <main id="chapters"></main>
+
+      <footer>
+        <div class="footer-inner">
+          <div class="footer-links">
+            <a href="file://///pubfile.hkusa.com/PubActive/Production - Ancillaries and Digital/1-Active/Cole - L1581/Development/Cole_Online_Video_Copyright.docx">Copyright page</a>
+          </div>
+          <div class="footer-logo">
+            <img src="file://///pubfile.hkusa.com/PubActive/Production - Ancillaries and Digital/1-Active/Cole - L1581/Development/HK logo horizontal 4C white text.png" alt="Human Kinetics logo" />
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      const data = [
+        {
+          chapterTitle: "Chapter 2 Reset Breathing Through Stress",
+          videos: [
+            {
+              title: "Yowwwzzzzza",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15858935&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408138641112&video_target=tpm-plugin-s2c4h940-6408138641112",
+            },
+            {
+              title: "Zing Bing A-Ring Alohaaaaa",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15864602&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408136682112&video_target=tpm-plugin-3qnaq3qr-6408136682112",
+            },
+           
+          ],
+        },
+        {
+          chapterTitle: "Chapter 3 The Spine: The Three Es",
+          videos: [
+            {
+              title: "Eliminating the Slump Hump",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15864598&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408137660112&video_target=tpm-plugin-sa80i095-6408137660112",
+            },
+			  
+			   {
+              title: "Martha Graham-Inspired Mobility Sequence",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15858937&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408138544112&video_target=tpm-plugin-ugluyyxk-6408138544112",
+            },
+			  
+			   {
+              title: "Swimmer Mobility Sequence",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15858936&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408139028112&video_target=tpm-plugin-071kiuur-6408139028112",
+            },
+          ],
+        },
+        {
+          chapterTitle: "Chapter 5 Seated Upper Body Exercises and Stretches",
+          videos: [
+            {
+              title: "Chair Elvis or Shake Out",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15864607&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408136291112&video_target=tpm-plugin-4n32fzer-6408136291112",
+            },
+            {
+              title: "Qigong Punch",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15858940&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408137565112&video_target=tpm-plugin-nyiowxvw-6408137565112",
+            },
+            {
+              title: "Crane Hand",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15858941&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408136681112&video_target=tpm-plugin-glqdadpk-6408136681112",
+            },
+           
+          ],
+        },
+        {
+          chapterTitle: "Chapter 6 Standing Chair-Braced Movements",
+          videos: [
+            {
+              title: "Dancer Tri-Tap",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15858939&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408138169112&video_target=tpm-plugin-9j9qfgee-6408138169112",
+            },
+            {
+              title: "Jazz Preps",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15864608&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408138937112&video_target=tpm-plugin-kiplgrmv-6408138937112",
+            },
+            {
+              title: "One, Two, Cha-Cha-Cha",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15858938&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408138263112&video_target=tpm-plugin-4ykjhd5y-6408138263112",
+            },
+           
+          ],
+        },
+        {
+          chapterTitle: "Chapter 7 Standing Balance and Mobility Exercises and Stretches",
+          videos: [
+            {
+              title: "Chi Walk",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15864610&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408138262112&video_target=tpm-plugin-of8gztlo-6408138262112",
+            },
+           
+          ],
+        },
+		  
+		  
+		   {
+          chapterTitle: "Chapter 8 Working the Wall and Feeling the Floor",
+          videos: [
+            {
+              title: "How to Get Down and Up From the Floor",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15864600&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408138938112&video_target=tpm-plugin-9w2gzkrr-6408138938112",
+            },
+			  
+			   {
+              title: "Adaptive Child's Pose Variations",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15864611&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408138168112&video_target=tpm-plugin-cccfead4-6408138168112",
+            },
+			  
+           
+          ],
+        },
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+		  
+      ];
+
+      // Use 3Play only. 3Play's /host URL is a shareable link, while
+      // /show?embed=iframe is its documented iframe endpoint. We preserve
+      // each video's original 3Play project/file, template, and target IDs.
+      // The provider may still load video from its configured source internally.
+      function get3PlaySources(hostedUrl) {
+        if (!hostedUrl || typeof hostedUrl !== "string") return null;
+        try {
+          const hosted = new URL(hostedUrl.trim());
+          if (hosted.protocol !== "https:" || hosted.hostname !== "plugin.3playmedia.com" || hosted.pathname !== "/host") return null;
+          if (!hosted.searchParams.has("p") || !hosted.searchParams.has("mf")) return null;
+
+          const iframe = new URL("https://plugin.3playmedia.com/show");
+          iframe.searchParams.set("embed", "iframe");
+          hosted.searchParams.forEach((value, key) => iframe.searchParams.append(key, value));
+          // Size of the 3Play interface, including any accessibility tools.
+          if (!iframe.searchParams.has("width")) iframe.searchParams.set("width", "100%");
+          if (!iframe.searchParams.has("height")) iframe.searchParams.set("height", "720px");
+          return { iframeUrl: iframe.toString(), hostedUrl: hosted.toString() };
+        } catch (_error) {
+          return null;
+        }
+      }
+
+      function escapeHtml(value) {
+        return String(value).replace(/[&<>"']/g, (c) => ({
+          "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+        })[c]);
+      }
+
+      const chaptersEl = document.getElementById("chapters");
+      const searchEl = document.getElementById("search");
+
+      function render(filterText = "") {
+        const q = filterText.trim().toLowerCase();
+        chaptersEl.innerHTML = "";
+
+        data.forEach((ch) => {
+          const chapterMatches = ch.chapterTitle.toLowerCase().includes(q);
+          const matchingVideos = !q || chapterMatches
+            ? ch.videos
+            : ch.videos.filter((v) => v.title.toLowerCase().includes(q));
+
+          if (q && !chapterMatches && matchingVideos.length === 0) return;
+
+          const details = document.createElement("details");
+          if (q && (chapterMatches || matchingVideos.length > 0)) details.open = true;
+
+          const summary = document.createElement("summary");
+
+          const left = document.createElement("div");
+          left.className = "summary-left";
+
+          const title = document.createElement("div");
+          title.textContent = ch.chapterTitle;
+
+          const chip = document.createElement("span");
+          chip.className = "chip";
+
+          const count = matchingVideos.length;
+          chip.textContent = `${count} ${count === 1 ? "video" : "videos"}`;
+
+          left.appendChild(title);
+          left.appendChild(chip);
+
+          const chev = document.createElement("div");
+          chev.className = "chev";
+          chev.textContent = "▾";
+
+          summary.appendChild(left);
+          summary.appendChild(chev);
+
+          const content = document.createElement("div");
+          content.className = "content";
+
+          const videosWrap = document.createElement("div");
+          videosWrap.className = "videos";
+
+          matchingVideos.forEach((v) => {
+            const card = document.createElement("div");
+            card.className = "card";
+
+            const sources = get3PlaySources(v.embedUrl);
+            const safeTitle = escapeHtml(v.title);
+
+            const embedHtml = !sources
+              ? `
+            <div class="pending">
+              <div><strong>3Play link unavailable:</strong> the video entry does not have a valid 3Play hosted URL.</div>
+            </div>
+          `
+              : `
+            <div class="embed-3play">
+              <iframe
+                src="${escapeHtml(sources.iframeUrl)}"
+                title="${safeTitle} - 3Play video and accessibility features"
+                loading="lazy"
+                allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <div class="pending openlink">
+              <div><a href="${escapeHtml(sources.hostedUrl)}" target="_blank" rel="noopener noreferrer">Open this video directly in 3Play (new tab)</a></div>
+            </div>
+          `;
+
+            card.innerHTML = `
+          <h4>
+            <span>${safeTitle}</span>
+            <span class="tag">3Play</span>
+          </h4>
+          ${embedHtml}
+        `;
+
+            videosWrap.appendChild(card);
+          });
+
+          content.appendChild(videosWrap);
+
+          details.appendChild(summary);
+          details.appendChild(content);
+          chaptersEl.appendChild(details);
+        });
+      }
+
+      searchEl.addEventListener("input", (e) => render(e.target.value));
+      render();
+    </script>
+  </body>
+</html>
