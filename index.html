@@ -314,7 +314,7 @@
       <header>
         <div class="header-inner">
           <h1>Better Balance, More Mobility: Gain Greater Stability and Strength at Any Age Online Video</h1>
-          <input id="search" type="search" placeholder="Search videos..." aria-label="Search videos" />
+          <input id="search" type="search" placeholder="Search videos and audio..." aria-label="Search videos and audio" />
         </div>
       </header>
 
@@ -447,7 +447,20 @@
         },
 		  
 		  
-		  
+		    {
+          chapterTitle: "Chapter 9 Maintain Inner Calm and Balance",
+          mediaType: "audio",
+          videos: [
+            {
+              title: "White Light Guided Imagery Relaxation - Audio Only",
+              embedUrl:
+                "https://plugin.3playmedia.com/host?data_account_number=901973548001&mf=15864597&p3sdk_version=1.11.7&p=11575&pt=1262&video_id=6408138383112&video_target=tpm-plugin-hdc1loig-6408138383112",
+            },
+			  
+
+           
+          ],
+        },
 		  
 		  
 		  
@@ -492,6 +505,7 @@
         chaptersEl.innerHTML = "";
 
         data.forEach((ch) => {
+          const mediaType = ch.mediaType === "audio" ? "audio" : "video";
           const chapterMatches = ch.chapterTitle.toLowerCase().includes(q);
           const matchingVideos = !q || chapterMatches
             ? ch.videos
@@ -514,7 +528,7 @@
           chip.className = "chip";
 
           const count = matchingVideos.length;
-          chip.textContent = `${count} ${count === 1 ? "video" : "videos"}`;
+          chip.textContent = `${count} ${mediaType === "audio" ? "audio" : (count === 1 ? "video" : "videos")}`;
 
           left.appendChild(title);
           left.appendChild(chip);
@@ -542,21 +556,21 @@
             const embedHtml = !sources
               ? `
             <div class="pending">
-              <div><strong>3Play link unavailable:</strong> the video entry does not have a valid 3Play hosted URL.</div>
+              <div><strong>3Play link unavailable:</strong> the ${mediaType} entry does not have a valid 3Play hosted URL.</div>
             </div>
           `
               : `
             <div class="embed-3play">
               <iframe
                 src="${escapeHtml(sources.iframeUrl)}"
-                title="${safeTitle} - 3Play video and accessibility features"
+                title="${safeTitle} - 3Play ${mediaType} and accessibility features"
                 loading="lazy"
                 allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
                 allowfullscreen
               ></iframe>
             </div>
             <div class="pending openlink">
-              <div><a href="${escapeHtml(sources.hostedUrl)}" target="_blank" rel="noopener noreferrer">Open this video directly in 3Play (new tab)</a></div>
+              <div><a href="${escapeHtml(sources.hostedUrl)}" target="_blank" rel="noopener noreferrer">Open this ${mediaType} directly in 3Play (new tab)</a></div>
             </div>
           `;
 
